@@ -85,5 +85,7 @@ This is the place for you to write reflections:
 ### Mandatory (Subscriber) Reflections
 
 #### Reflection Subscriber-1
+1. The main reason of using RwLock<> instead of Mutex<> is because the notifications vector is a shared static variable that is accessed by multiple threads. RwLock<> allows multiple threads to read at the same time and only locks during write operations. Mutex<> blocks all other threads even if it's a read operation which causes unnecessary delay. For this case, listing notifications occurs more frequently than adding writing new notifications which means that RwLock<> more efficient.
+2. Rust has strict requirements regarding its variables while Java is not as strict. Specifically, Rust's strict ownership and memory safety rules prohibits variables which are mutable and static because they can cause data races when there are multiple threads. When multiple threads are active, they can read and write to the same space of memory without ensuring the consistency of the data being accessed or written. 
 
 #### Reflection Subscriber-2
